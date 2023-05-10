@@ -7,7 +7,6 @@
     <groupId>org.example</groupId>
     <artifactId>SelenideWebsiteTesting</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
@@ -34,6 +33,11 @@
             <artifactId>junit-jupiter</artifactId>
             <version>5.7.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>6.13.1</version>
         </dependency>
     </dependencies>
 </project>
