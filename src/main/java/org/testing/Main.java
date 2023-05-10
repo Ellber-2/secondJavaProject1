@@ -26,88 +26,32 @@ public class Main {
             Configuration.browserSize = "1980x1080";
             open("https://www.ltu.se/");
 
+            WebsiteTesting tasks = new WebsiteTesting();
 
-            acceptCookiesLtu();
+            tasks.acceptCookiesLtu();
             System.out.println("Devoured cookies from ltu");
 
-            studentButton();
+            tasks.studentButton();
             System.out.println("managed to press studentlink");
 
-            loginButton();
+            tasks.loginButton();
             System.out.println("loginbuton ha been");
 
-            loginCredentials();
+            tasks.loginCredentials();
             System.out.println("logincredentials putin or sum");
 
-            certificateButton();
+            tasks.certificateButton();
             System.out.println("cetificate button has been pressurized.");
 
-            switchWindow();
+            tasks.switchWindow();
             System.out.println("SWetched wenbdos");
-/*
-            acceptCookiesLadok();
-            System.out.println("Acksepted cockies");
 
- */
-
-            accessInstitution();
+            tasks.accessInstitution();
             System.out.println("SELECT Acess denied WHERE denied = - * (-1)");
 
 
         }
-    public static ArrayList<String> listCredits() {
-        File jsonFile = new File("C:\\temp\\ltu.json");
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<String> credentials = new ArrayList<>();
 
-        try {
-            Map<String, Map<String, String>> data = objectMapper.readValue(jsonFile, Map.class);
-            String email = data.get("ltu").get("email");
-            String password = data.get("ltu").get("password");
-            credentials.add(email);
-            credentials.add(password);
-        } catch (IOException e) {
-
-        }
-
-        return credentials;
-    }
-
-    public static void studentButton() {
-        SelenideElement studentButton = $(By.xpath("//*[@id='main-nav']/div[3]/div/a[1]"));
-        studentButton.click();
-    }
-    public static void acceptCookiesLtu() {
-        $("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click();
-    }
-    public static void loginButton() {
-        $(By.xpath("//a[normalize-space()='Logga in']")).click();
-    }
-    public static void certificateButton() {
-        $(By.xpath("//a[normalize-space()='Intyg »']")).click();
-    }
-    public static void loginCredentials() {
-        String email = listCredits().get(0);
-        String password = listCredits().get(1);
-        $(By.cssSelector("#username")).setValue(email);
-        $(By.cssSelector("#password")).setValue(password);
-        $(By.cssSelector("input[value='LOGGA IN']")).click();
-    }
-    public static void accessInstitution(){
-        $(".d-flex.align-items-center").click();
-
-}
-public static void switchWindow(){
-    String currentWindowHandle = WebDriverRunner.getWebDriver().getWindowHandle();
-    Set<String> windowHandles = WebDriverRunner.getWebDriver().getWindowHandles();
-    windowHandles.remove(currentWindowHandle);
-    String newLadokWindow = windowHandles.iterator().next();
-    WebDriverRunner.getWebDriver().switchTo().window(newLadokWindow);
-}
-    public static void acceptCookiesLadok(){
-        $(By.xpath("//button[normalize-space()='I understand']")).click();
-
-}
 }
 
 

@@ -2,6 +2,7 @@ package org.testing;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,49 +13,63 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
-public class WebsiteTesting{
+public class WebsiteTesting {
+        public void acceptCookiesLtu() {
+                $("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click();
+        }
+        public void studentButton() {
+                SelenideElement studentButton = $(By.xpath("//*[@id='main-nav']/div[3]/div/a[1]"));
+                studentButton.click();
+        }
+        public void loginButton() {
+                $(By.xpath("//a[normalize-space()='Logga in']")).click();
+        }
+        public ArrayList<String> listCredits() {
+                File jsonFile = new File("C:\\temp\\ltu.json");
+                ObjectMapper objectMapper = new ObjectMapper();
+                ArrayList<String> credentials = new ArrayList<>();
 
-public ArrayList<String> listCredits() {
-        File jsonFile = new File("C:\\temp\\ltu.json");
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<String> credentials = new ArrayList<>();
+                try {
+                        Map<String, Map<String, String>> data = objectMapper.readValue(jsonFile, Map.class);
+                        String email = data.get("ltu").get("email");
+                        String password = data.get("ltu").get("password");
+                        credentials.add(email);
+                        credentials.add(password);
+                } catch (IOException e) {
 
-        try {
-        Map<String, Map<String, String>> data = objectMapper.readValue(jsonFile, Map.class);
-        String email = data.get("ltu").get("email");
-        String password = data.get("ltu").get("password");
-        credentials.add(email);
-        credentials.add(password);
-        } catch (IOException e) {
+                }
 
+                return credentials;
         }
 
-        return credentials;
+        public void loginCredentials() {
+                String email = listCredits().get(0);
+                String password = listCredits().get(1);
+                $(By.cssSelector("#username")).setValue(email);
+                $(By.cssSelector("#password")).setValue(password);
+                $(By.cssSelector("input[value='LOGGA IN']")).click();
+        }
+        public void certificateButton() {
+                $(By.xpath("//a[normalize-space()='Intyg »']")).click();
+        }
+        public void switchWindow(){
+                String currentWindowHandle = WebDriverRunner.getWebDriver().getWindowHandle();
+                Set<String> windowHandles = WebDriverRunner.getWebDriver().getWindowHandles();
+                windowHandles.remove(currentWindowHandle);
+                String newLadokWindow = windowHandles.iterator().next();
+                WebDriverRunner.getWebDriver().switchTo().window(newLadokWindow);
+        }
+        public void accessInstitution(){
+                $(".d-flex.align-items-center").click();
+
         }
 
-public  ChromeOptions chromeSettings() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications", "--lang=eng");
-        return options;
-        }
-public void studentButton() {
-        SelenideElement studentButton = $(By.xpath("//*[@id='main-nav']/div[3]/div/a[1]"));
-        studentButton.click();
-        }
-public void acceptCookies() {
-        $("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click();
-        }
-public void loginButton() {
-        $(By.xpath("//a[normalize-space()='Logga in']")).click();
-        }
-public  void certificateButton() {
-        $("active expand").click();
-        }
-public void loginCredentials() {
-        String email = listCredits().get(0);
-        $(By.cssSelector("#username")).setValue(email);
-        }
-        }
+/*        public static void acceptCookiesLadok(){
+                $(By.xpath("//button[normalize-space()='I understand']")).click();
+
+        }*/
+}
