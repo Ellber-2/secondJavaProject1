@@ -70,15 +70,9 @@ class Verify {
 
         tasks.loginCredentials();
 
-
-
-        tasks.searchCourseCode();
-
-        tasks.clickCourseLink();
+        tasks.findExaminationInfoPage();
 
         tasks.switchWindow();
-
-        tasks.findExaminationInfoPage();
 
         tasks.searchCourseCode();
 
