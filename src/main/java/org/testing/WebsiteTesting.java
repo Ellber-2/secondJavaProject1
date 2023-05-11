@@ -11,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -89,8 +91,14 @@ public class WebsiteTesting {
                 $(By.cssSelector("[title='Skapa intyg']")).click();
         }
 
-/*        public static void acceptCookiesLadok(){
-                $(By.xpath("//button[normalize-space()='I understand']")).click();
+        public void searchCourseCode(){
+                $(By.id("enkel_sokfalt")).setValue("I0015N").pressEnter();
 
-        }*/
+        }
+
+        public void clickCourseLink(){
+                $(By.linkText("I0015N-VT23-47000-, Test av IT-system vt234 50")).click();
+        }
+
+
 }
