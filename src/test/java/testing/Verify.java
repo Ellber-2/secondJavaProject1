@@ -70,13 +70,17 @@ class Verify {
 
         tasks.loginCredentials();
 
-        tasks.findExaminationInfoPage();
+        //tasks.findExaminationInfoPage();
 
         tasks.switchWindow();
 
         tasks.searchCourseCode();
 
         tasks.clickCourseLink();
+
+        /*
+        Not working. Cannot find xpath for the date.
+         */
 
         String tdText = $(By.xpath("//td[contains(text(),'2023-04-17')]")).getText();
         assertEquals("2023-04-17", tdText);
