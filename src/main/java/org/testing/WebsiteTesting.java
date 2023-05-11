@@ -100,5 +100,19 @@ public class WebsiteTesting {
                 $(By.linkText("I0015N-VT23-47000-, Test av IT-system vt234 50")).click();
         }
 
+        public void screenshotToFolder(String nameFile){
+                String directoryPath = "target/screenshots";
+                File directory = new File(directoryPath);
+                directory.mkdirs();
 
+                File screenshotFile = $(By.tagName("body")).screenshot();
+
+                String destinationPath = directoryPath + "/" + nameFile + ".jpeg";
+
+                try {
+                        Files.move(screenshotFile.toPath(), new File(destinationPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
 }
