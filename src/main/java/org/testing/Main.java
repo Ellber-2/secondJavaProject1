@@ -34,6 +34,7 @@ public class Main {
             tasks.studentButton();
             System.out.println("managed to press studentlink");
 
+/*
             tasks.loginButton();
             System.out.println("loginbuton ha been");
 
@@ -48,6 +49,7 @@ public class Main {
 
             tasks.accessInstitution();
             System.out.println("SELECT Acess denied WHERE denied = - * (-1)");
+*/
 
 
         }
