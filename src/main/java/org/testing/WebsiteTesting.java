@@ -47,8 +47,9 @@ public class WebsiteTesting {
         }
 
         public void loginCredentials() {
-                String email = listCredits().get(0);
-                String password = listCredits().get(1);
+                ArrayList<String> listCredits = listCredits();
+                String email = listCredits.get(0);
+                String password = listCredits.get(1);
                 $(By.cssSelector("#username")).setValue(email);
                 $(By.cssSelector("#password")).setValue(password);
                 $(By.cssSelector("input[value='LOGGA IN']")).click();
