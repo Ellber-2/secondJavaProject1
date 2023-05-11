@@ -64,8 +64,28 @@ public class WebsiteTesting {
                 WebDriverRunner.getWebDriver().switchTo().window(newLadokWindow);
         }
         public void accessInstitution(){
-                $(".d-flex.align-items-center").click();
+                $(By.xpath("//span[normalize-space()='Access through your institution']")).click();
 
+        }
+
+        public void organisationSearchInput(){
+                $(By.id("searchinput")).setValue("LTU");
+        }
+
+        public void selectLTU() {
+                $(By.cssSelector("[aria-label='Select Lulea University of Technology']")).click();
+        }
+
+        public void makeLadokSwedish() {
+                $(By.xpath("//a[normalize-space()='På svenska']")).click();
+        }
+
+        public void secondCertificateButton() {
+                $(By.xpath("//a[normalize-space()='Intyg']")).click();
+        }
+
+        public void createCertificate(){
+                $(By.cssSelector("[title='Skapa intyg']")).click();
         }
 
 /*        public static void acceptCookiesLadok(){

@@ -29,27 +29,42 @@ public class Main {
             WebsiteTesting tasks = new WebsiteTesting();
 
             tasks.acceptCookiesLtu();
-            System.out.println("Devoured cookies from ltu");
+
 
             tasks.studentButton();
-            System.out.println("managed to press studentlink");
 
-/*
+
+
             tasks.loginButton();
-            System.out.println("loginbuton ha been");
+
 
             tasks.loginCredentials();
-            System.out.println("logincredentials putin or sum");
+
 
             tasks.certificateButton();
-            System.out.println("cetificate button has been pressurized.");
+
 
             tasks.switchWindow();
-            System.out.println("SWetched wenbdos");
+
 
             tasks.accessInstitution();
             System.out.println("SELECT Acess denied WHERE denied = - * (-1)");
-*/
+
+            tasks.organisationSearchInput();
+
+
+            tasks.selectLTU();
+
+
+            tasks.makeLadokSwedish();
+
+
+            tasks.secondCertificateButton();
+            System.out.println("Coulda should woulda used the same method if it werent for ->");
+
+            tasks.createCertificate();
+            System.out.println("created certificate??? NONO only press button to ");
+
 
 
         }
