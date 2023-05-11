@@ -100,6 +100,9 @@ public class WebsiteTesting {
                 $(By.linkText("I0015N-VT23-47000-, Test av IT-system vt234 50")).click();
         }
 
+        /*
+        Not working. Method below.
+         */
         public void findExaminationInfoPage() {
                 $(By.xpath("//a[contains(text(),'Tentamensschema')]")).click();
         }
