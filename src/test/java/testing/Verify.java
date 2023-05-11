@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.*;
 /**
@@ -47,6 +48,51 @@ class Verify {
         assertEquals("https://portal.ltu.se/group/student/start", WebDriverRunner.getWebDriver().getCurrentUrl());
 
     }
+    /**
+     *Verify examination date
+     */
+    @Test
+    public void assertExaminationDate() {
+
+        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
+        Configuration.browserSize = "1980x1080";
+        open("https://www.ltu.se/");
+
+        WebsiteTesting tasks = new WebsiteTesting();
+
+        tasks.acceptCookiesLtu();
+
+        tasks.studentButton();
+
+
+        tasks.loginButton();
+
+
+        tasks.loginCredentials();
+
+
+
+        tasks.searchCourseCode();
+
+        tasks.clickCourseLink();
+
+        tasks.switchWindow();
+
+        tasks.findExaminationInfoPage();
+
+        tasks.searchCourseCode();
+
+        tasks.clickCourseLink();
+
+        String tdText = $(By.xpath("//td[contains(text(),'2023-04-17')]")).getText();
+        assertEquals("2023-04-17", tdText);
+    }
+
+
+
+
+
+
     /**
      * Verify download by finding the file in the directory.
      */
