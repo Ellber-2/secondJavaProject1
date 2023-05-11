@@ -68,11 +68,11 @@ public class WebsiteTesting {
 
         }
 
-        public void organisationSearchInput(){
-                $(By.id("searchinput")).setValue("LTU");
+        public void organisationSearchInput(String institution){
+                $(By.id("searchinput")).setValue(institution);
         }
 
-        public void selectLTU() {
+        public void selectInstitution() {
                 $(By.cssSelector("[aria-label='Select Lulea University of Technology']")).click();
         }
 

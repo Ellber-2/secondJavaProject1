@@ -50,10 +50,10 @@ public class Main {
             tasks.accessInstitution();
             System.out.println("SELECT Acess denied WHERE denied = - * (-1)");
 
-            tasks.organisationSearchInput();
+            tasks.organisationSearchInput("LTU");
 
 
-            tasks.selectLTU();
+            tasks.selectInstitution();
 
 
             tasks.makeLadokSwedish();
