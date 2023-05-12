@@ -1,6 +1,7 @@
 package org.testing;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,8 +16,10 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
+import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 public class WebsiteTesting {
@@ -66,6 +69,16 @@ public class WebsiteTesting {
                 String newLadokWindow = windowHandles.iterator().next();
                 WebDriverRunner.getWebDriver().switchTo().window(newLadokWindow);
         }
+
+
+        public void closeTab() {
+                String currentWindow = WebDriverRunner.getWebDriver().getWindowHandle();
+                Set<String> windowHandle = WebDriverRunner.getWebDriver().getWindowHandles();
+                windowHandle.remove(currentWindow);
+                WebDriverRunner.getWebDriver().close();
+                String remainingWindowHandle = windowHandle.iterator().next();
+                WebDriverRunner.getWebDriver().switchTo().window(remainingWindowHandle);
+        }
         public void accessInstitution(){
                 $(By.xpath("//span[normalize-space()='Access through your institution']")).click();
 
@@ -104,7 +117,8 @@ public class WebsiteTesting {
         Not working. Method below.
          */
         public void findExaminationInfoPage() {
-                $(By.xpath("//a[contains(text(),'Tentamensschema')]")).click();
+                $(By.xpath("//a[normalize-space()='Tentamen']")).click();
+                $(By.xpath("//a[normalize-space()='Tentamensschema']")).click();
         }
 
 

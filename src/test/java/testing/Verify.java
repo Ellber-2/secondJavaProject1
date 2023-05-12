@@ -53,36 +53,21 @@ class Verify {
      */
     @Test
     public void assertExaminationDate() {
-
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
         Configuration.browserSize = "1980x1080";
-        open("https://www.ltu.se/");
-
         WebsiteTesting tasks = new WebsiteTesting();
-
+        open("https://www.ltu.se/");
         tasks.acceptCookiesLtu();
-
         tasks.studentButton();
-
-
         tasks.loginButton();
-
-
         tasks.loginCredentials();
-
-        //tasks.findExaminationInfoPage();
-
-        tasks.switchWindow();
-
+        tasks.findExaminationInfoPage();
+        tasks.closeTab();
         tasks.searchCourseCode();
-
         tasks.clickCourseLink();
-
-        /*
-        Not working. Cannot find xpath for the date.
-         */
-
-        String tdText = $(By.xpath("//td[contains(text(),'2023-04-17')]")).getText();
+        tasks.closeTab();
+        tasks.screenshotToFolder("final_examination");
+        String tdText = $(By.xpath("//td[text()='2023-04-17']")).getText();
         assertEquals("2023-04-17", tdText);
     }
 
