@@ -13,7 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import org.junit.jupiter.api.Test;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Verify automated Facebook testing tasks.
  */
 class Verify {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Verify.class);
     /**
      * Verify login using expected URL.
      */
@@ -68,6 +70,7 @@ class Verify {
         tasks.closeTab();
         tasks.screenshotToFolder("final_examination");
         String tdText = $(By.xpath("//td[text()='2023-04-17']")).getText();
+        LOGGER.info("Date of the exam is " + tdText);
         assertEquals("2023-04-17", tdText);
     }
 

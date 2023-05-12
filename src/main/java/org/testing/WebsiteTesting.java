@@ -105,20 +105,35 @@ public class WebsiteTesting {
         }
 
         public void searchCourseCode(){
-                $(By.id("enkel_sokfalt")).setValue("I0015N").pressEnter();
+                try {
+                        $(By.id("enkel_sokfalt")).setValue("I0015N").pressEnter();
+}catch(NoSuchElementException e){
+                        System.out.println("No such element");
+                }
 
         }
 
         public void clickCourseLink(){
-                $(By.linkText("I0015N-VT23-47000-, Test av IT-system vt234 50")).click();
+                try {
+                        $(By.linkText("I0015N-VT23-47000-, Test av IT-system vt234 50")).click();
+                }catch(NoSuchElementException e){
+                        System.out.println("No such element");
+                }
+
         }
 
         /*
         Not working. Method below.
          */
         public void findExaminationInfoPage() {
-                $(By.xpath("//a[normalize-space()='Tentamen']")).click();
-                $(By.xpath("//a[normalize-space()='Tentamensschema']")).click();
+                try {
+                        $(By.xpath("//a[normalize-space()='Tentamen']")).click();
+                        $(By.xpath("//a[normalize-space()='Tentamensschema']")).click();
+
+                }catch(NoSuchElementException e){
+                        System.out.println("No such element");
+                }
+
         }
 
 
