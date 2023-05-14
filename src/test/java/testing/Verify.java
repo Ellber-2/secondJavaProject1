@@ -2,6 +2,7 @@ package testing;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import org.junit.jupiter.api.Disabled;
 import org.testing.WebsiteTesting;
 
 import org.openqa.selenium.By;
@@ -31,8 +32,8 @@ class Verify {
     @Test
     public void assertLogin() {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-        Configuration.browserSize = "1980x1080";
         open("https://www.ltu.se/");
+        WebDriverRunner.getWebDriver().manage().window().maximize();
 
         WebsiteTesting tasks = new WebsiteTesting();
 
@@ -56,9 +57,10 @@ class Verify {
     @Test
     public void assertExaminationDate() {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-        Configuration.browserSize = "1980x1080";
         WebsiteTesting tasks = new WebsiteTesting();
         open("https://www.ltu.se/");
+        WebDriverRunner.getWebDriver().manage().window().maximize();
+
         tasks.acceptCookiesLtu();
         tasks.studentButton();
         tasks.loginButton();
@@ -82,11 +84,11 @@ class Verify {
     /**
      * Verify download by finding the file in the directory.
      */
-    /*@Test
+    @Test
     public void assertDownload() {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-        Configuration.browserSize = "1980x1080";
         open("https://www.ltu.se/");
+        WebDriverRunner.getWebDriver().manage().window().maximize();
 
         WebsiteTesting tasks = new WebsiteTesting();
 
@@ -101,7 +103,73 @@ class Verify {
 
 
     }
-    *//**
+
+    @Test
+    public void assertDownloadCertificate() {
+        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
+        open("https://www.ltu.se/");
+        WebDriverRunner.getWebDriver().manage().window().maximize();
+        WebsiteTesting tasks = new WebsiteTesting();
+
+        tasks.acceptCookiesLtu();
+
+        tasks.studentButton();
+
+        tasks.loginButton();
+
+        tasks.loginCredentials();
+
+        tasks.ltuCertificateButton();
+
+        tasks.switchWindow();
+
+        tasks.accessInstitutionButton();
+
+        tasks.organisationSearchInput("LTU");
+
+        tasks.selectInstitution();
+
+        tasks.ladokCertificateButton();
+
+        tasks.saveRegistrationCertificateToFolder();
+    }
+    @Test
+    public void assertDownloadSyllbus() {
+        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
+        open("https://www.ltu.se/");
+        WebDriverRunner.getWebDriver().manage().window().maximize();
+        WebsiteTesting tasks = new WebsiteTesting();
+
+        tasks.acceptCookiesLtu();
+        tasks.search();
+        tasks.selectTestAvIt();
+        tasks.cyllabusButton();
+        tasks.selectAdmissionSemester();
+        tasks.saveSyllabusToFolder();
+    }
+
+    @Disabled
+    //@Test
+    public void assertCreateCertificate() {
+        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
+        open("https://www.ltu.se/");
+        WebDriverRunner.getWebDriver().manage().window().maximize();
+        WebsiteTesting tasks = new WebsiteTesting();
+        tasks.acceptCookiesLtu();
+        tasks.studentButton();
+        tasks.loginButton();
+        tasks.loginCredentials();
+        tasks.ltuCertificateButton();
+        tasks.switchWindow();
+        tasks.accessInstitutionButton();
+        tasks.organisationSearchInput("LTU");
+        tasks.selectInstitution();
+        tasks.ladokCertificateButton();
+        tasks.createCertificate();
+        tasks.certificateTypeButton();
+        tasks.createCertificate();
+    }
+    /**
      * Verify search using expected URL.
      *//*
     @Test
@@ -128,7 +196,7 @@ class Verify {
         driver.quit();
 
     }
-    *//**
+    /**
      * Verify posting by finding the text in the element after posting.
      *//*
     @Test

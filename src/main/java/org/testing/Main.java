@@ -23,47 +23,40 @@ import static com.codeborne.selenide.Selenide.$;
 public class Main {
         public static void main(String[] args) {
             System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-            Configuration.browserSize = "1980x1080";
             open("https://www.ltu.se/");
-
             WebsiteTesting tasks = new WebsiteTesting();
+            WebDriverRunner.getWebDriver().manage().window().maximize();
 
             tasks.acceptCookiesLtu();
 
-
             tasks.studentButton();
-
-
 
             tasks.loginButton();
 
-
             tasks.loginCredentials();
 
-
-            tasks.certificateButton();
-
+            tasks.ltuCertificateButton();
 
             tasks.switchWindow();
 
-
-            tasks.accessInstitution();
-            System.out.println("SELECT Acess denied WHERE denied = - * (-1)");
+            tasks.accessInstitutionButton();
 
             tasks.organisationSearchInput("LTU");
 
-
             tasks.selectInstitution();
 
+            tasks.ladokCertificateButton();
 
-            tasks.makeLadokSwedish();
+            tasks.createCertificateButton();
 
-
-            tasks.secondCertificateButton();
-            System.out.println("Coulda should woulda used the same method if it werent for ->");
+            tasks.certificateTypeButton();
 
             tasks.createCertificate();
-            System.out.println("created certificate??? NONO only press button to ");
+
+
+
+
+
 
 
 
