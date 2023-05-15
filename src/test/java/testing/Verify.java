@@ -3,15 +3,14 @@ package testing;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.Disabled;
 import org.testing.WebsiteTesting;
-import org.openqa.selenium.By;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,7 +79,7 @@ class Verify {
         tasks.clickCourseLink();
         tasks.closeTab();
         tasks.screenshotToFolder("final_examination");
-        String tdText = $(By.xpath("//td[text()='2023-04-17']")).getText();
+        String tdText = $x("//td[text()='2023-04-17']").getText();
         closeWebDriver();
         LOGGER.info("Date of the exam is " + tdText);
         assertEquals("2023-04-17", tdText);

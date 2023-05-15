@@ -1,11 +1,11 @@
 package org.testing;
 
+import com.codeborne.selenide.Screenshots;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.ex.ElementNotFound;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -25,24 +26,24 @@ public class WebsiteTesting {
 
                 try {
                         $("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click();
-                } catch (TimeoutException e ){
+                } catch (ElementNotFound e){
                         System.out.println("Accept cookies is not visible");
                 }
         }
 
         public void studentButton() {
                 try {
-                        SelenideElement studentButton = $(By.xpath("//*[@id='main-nav']/div[3]/div/a[1]"));
+                        SelenideElement studentButton = $x("//*[@id='main-nav']/div[3]/div/a[1]");
                         studentButton.click();
-                } catch (TimeoutException e) {
+                } catch (ElementNotFound e) {
                         System.out.println("Student button is not visible");
                 }
         }
 
         public void loginButton() {
                 try {
-                        $(By.xpath("//a[normalize-space()='Logga in']")).click();
-                } catch (TimeoutException e) {
+                        $x("//a[normalize-space()='Logga in']").click();
+                } catch (ElementNotFound e) {
                         System.out.println("Login button is not visible");
                 }
         }
@@ -70,10 +71,10 @@ public class WebsiteTesting {
                 String email = listCredits.get(0);
                 String password = listCredits.get(1);
                 try {
-                        $(By.cssSelector("#username")).setValue(email);
-                        $(By.cssSelector("#password")).setValue(password);
-                        $(By.cssSelector("input[value='LOGGA IN']")).click();
-                } catch (TimeoutException e) {
+                        $("#username").setValue(email);
+                        $("#password").setValue(password);
+                        $("input[value='LOGGA IN']").click();
+                } catch (ElementNotFound e) {
                         System.out.println("Issues with login");
                 }
 
@@ -82,8 +83,8 @@ public class WebsiteTesting {
 
         public void ltuCertificateButton() {
                 try {
-                        $(By.xpath("//a[normalize-space()='Intyg »']")).click();
-                } catch (TimeoutException e) {
+                        $x("//a[normalize-space()='Intyg »']").click();
+                } catch (ElementNotFound e) {
                         System.out.println("Could not find ltu certificate button");
                 }
 
@@ -108,8 +109,8 @@ public class WebsiteTesting {
 
         public void accessInstitutionButton() {
                 try {
-                        $(By.xpath("//span[normalize-space()='Access through your institution']")).click();
-                } catch (TimeoutException e) {
+                        $x("//span[normalize-space()='Access through your institution']").click();
+                } catch (ElementNotFound e) {
                         System.out.println("Could not find access institution button");
                 }
 
@@ -117,8 +118,8 @@ public class WebsiteTesting {
 
         public void organisationSearchInput(String institution) {
                 try {
-                        $(By.id("searchinput")).setValue(institution);
-                } catch (TimeoutException e) {
+                        $("#searchinput").setValue(institution);
+                } catch (ElementNotFound e) {
                         System.out.println("Could not find organisation search input");
                 }
 
@@ -126,8 +127,8 @@ public class WebsiteTesting {
 
         public void selectInstitution() {
                 try {
-                        $(By.cssSelector("[aria-label='Select Lulea University of Technology']")).click();
-                } catch (TimeoutException e) {
+                        $("[aria-label='Select Lulea University of Technology']").click();
+                } catch (ElementNotFound e) {
                         System.out.println("Could not select institution");
                 }
 
@@ -135,8 +136,8 @@ public class WebsiteTesting {
 
         public void ladokCertificateButton() {
                 try {
-                        $(By.xpath("//a[normalize-space()='Intyg']")).click();
-                } catch (TimeoutException e) {
+                        $x("//a[normalize-space()='Intyg']").click();
+                } catch (ElementNotFound e) {
                         System.out.println("Could not find ladok certificate button");
                 }
 
@@ -144,9 +145,9 @@ public class WebsiteTesting {
 
         public void certificateTypeButton() {
                 try {
-                        $(By.id("intygstyp")).click();
+                        $("#intygstyp").click();
                         $(byText("Registreringsintyg")).click();
-                } catch (TimeoutException e) {
+                } catch (ElementNotFound e) {
                         System.out.println("Issues with certificate type");
                 }
 
@@ -154,10 +155,9 @@ public class WebsiteTesting {
 
         public void certificateInformation() {
                 try {
-                        $(By.cssSelector("#start")).setValue("2022-01-01");
-                        $(By.cssSelector("#slut")).setValue("2024-01-01");
-
-                } catch (TimeoutException e) {
+                        $("#start").setValue("2022-01-01");
+                        $("#slut").setValue("2024-01-01");
+                } catch (ElementNotFound e) {
                         System.out.println("Issues with start and end date");
                 }
 
@@ -165,16 +165,16 @@ public class WebsiteTesting {
 
         public void createCertificate() {
                 try {
-                        $(By.cssSelector("button[class='btn btn-ladok-brand text-nowrap me-lg-3']")).click();
-                } catch (TimeoutException e) {
+                        $("button[class='btn btn-ladok-brand text-nowrap me-lg-3']").click();
+                } catch (ElementNotFound e) {
                         throw new RuntimeException("Certificate creation failed: " + e.getMessage());
                 }
         }
 
         public void createCertificateButton() {
                 try {
-                        $(By.cssSelector("[title='Skapa intyg']")).click();
-                } catch (TimeoutException e) {
+                        $("[title='Skapa intyg']").click();
+                } catch (ElementNotFound e) {
                         throw new RuntimeException(e.getMessage());
                 }
 
@@ -182,7 +182,7 @@ public class WebsiteTesting {
 
         public void searchCourseCode() {
                 try {
-                        $(By.id("enkel_sokfalt")).setValue("I0015N").pressEnter();
+                        $("#enkel_sokfalt").setValue("I0015N").pressEnter();
                 } catch (NoSuchElementException e) {
                         System.out.println("No such element");
                 }
@@ -190,7 +190,7 @@ public class WebsiteTesting {
 
         public void clickCourseLink() {
                 try {
-                        $(By.linkText("I0015N-VT23-47000-, Test av IT-system vt234 50")).click();
+                        $(byLinkText("I0015N-VT23-47000-, Test av IT-system vt234 50")).click();
                 } catch (NoSuchElementException e) {
                         System.out.println("No such element");
                 }
@@ -201,8 +201,8 @@ public class WebsiteTesting {
         */
         public void findExaminationInfoPage() {
                 try {
-                        $(By.xpath("//a[normalize-space()='Tentamen']")).click();
-                        $(By.xpath("//a[normalize-space()='Tentamensschema']")).click();
+                        $x("//a[normalize-space()='Tentamen']").click();
+                        $x("//a[normalize-space()='Tentamensschema']").click();
                 } catch (NoSuchElementException e) {
                         System.out.println("No such element");
                 }
@@ -213,7 +213,7 @@ public class WebsiteTesting {
                 File directory = new File(directoryPath);
                 directory.mkdirs();
 
-                File screenshotFile = $(By.tagName("body")).screenshot();
+                File screenshotFile = Screenshots.takeScreenShotAsFile();
 
                 String destinationPath = directoryPath + "/" + nameFile + ".jpeg";
 
@@ -229,7 +229,7 @@ public class WebsiteTesting {
                 File directory = new File(directoryPath);
                 directory.mkdirs();
 
-                String downloadUrl = $(By.cssSelector("div[class='ladok-list-kort border-top-none'] a[title='Öppna PDF-dokument i nytt fönster']")).getAttribute("href");
+                String downloadUrl = $("div[class='ladok-list-kort border-top-none'] a[title='Öppna PDF-dokument i nytt fönster']").getAttribute("href");
 
                 String destinationPath = directoryPath + "/registration_certificate.pdf";
 
@@ -242,41 +242,41 @@ public class WebsiteTesting {
         }
         public void search(){
                 try {
-                        $(By.xpath("//button[@class='button is-medium ltu-search-btn']")).click();
-                        $(By.xpath("//input[@id='cludo-search-bar-input']")).setValue("I0015N").sendKeys(Keys.ENTER);
-                } catch (TimeoutException e) {
+                        $x("//button[@class='button is-medium ltu-search-btn']").click();
+                        $x("//input[@id='cludo-search-bar-input']").setValue("I0015N").pressEnter();
+                } catch (ElementNotFound e) {
                         throw new RuntimeException(e.getMessage());
                 }
 
         }
         public void logout() {
                 try {
-                        $(By.cssSelector(".user-full-name")).click();
-                        $(By.xpath("//span[normalize-space()='Logga ut']")).click();
-                } catch (TimeoutException e) {
+                        $(".user-full-name").click();
+                        $x("//span[normalize-space()='Logga ut']").click();
+                } catch (ElementNotFound e) {
                         throw new RuntimeException(e.getMessage());
                 }
         }
         public void selectTestAvIt(){
                 try {
-                        $(By.cssSelector("a[title='Test av IT-system']")).click();
-                } catch (TimeoutException e) {
+                        $("a[title='Test av IT-system']").click();
+                } catch (ElementNotFound e) {
                         throw new RuntimeException(e.getMessage());
                 }
 
         }
         public void syllabusButton(){
                 try {
-                        $(By.xpath("//div[@class='more-edu-info']//div//a[contains(text(),'Kursplan')]")).click();
-                } catch (TimeoutException e) {
+                        $x("//div[@class='more-edu-info']//div//a[contains(text(),'Kursplan')]").click();
+                } catch (ElementNotFound e) {
                         throw new RuntimeException(e.getMessage());
                 }
 
         }
         public void selectAdmissionSemester() {
                 try {
-                        $(By.xpath("//a[normalize-space()='V23']")).click();
-                } catch (TimeoutException e) {
+                        $x("//a[normalize-space()='V23']").click();
+                } catch (ElementNotFound e) {
                         throw new RuntimeException(e.getMessage());
                 }
 
@@ -286,7 +286,7 @@ public class WebsiteTesting {
                 File directory = new File(directoryPath);
                 directory.mkdirs();
 
-                String downloadUrl = $(By.xpath("//a[@class='utbplan-pdf-link']")).getAttribute("href");
+                String downloadUrl = $x("//a[@class='utbplan-pdf-link']").getAttribute("href");
 
                 String destinationPath = directoryPath + "/syllabus.pdf";
 
