@@ -1,6 +1,5 @@
 package testing;
 
-
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.Disabled;
 import org.testing.WebsiteTesting;
@@ -8,13 +7,12 @@ import org.openqa.selenium.By;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -38,8 +36,28 @@ class Verify {
         tasks.studentButton();
         tasks.loginButton();
         tasks.loginCredentials();
-
         assertEquals("https://portal.ltu.se/group/student/start", WebDriverRunner.getWebDriver().getCurrentUrl());
+        closeWebDriver();
+    }
+
+    /**
+     * Verify that logout is successful.
+     */
+
+    @Test
+    public void assertLogout() {
+        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
+        open("https://www.ltu.se/");
+        WebDriverRunner.getWebDriver().manage().window().maximize();
+        WebsiteTesting tasks = new WebsiteTesting();
+
+        tasks.acceptCookiesLtu();
+        tasks.studentButton();
+        tasks.loginButton();
+        tasks.loginCredentials();
+        tasks.logout();
+        assertEquals("https://weblogon.ltu.se/cas/logout",WebDriverRunner.getWebDriver().getCurrentUrl());
+        closeWebDriver();
     }
 
     /**
@@ -63,6 +81,7 @@ class Verify {
         tasks.closeTab();
         tasks.screenshotToFolder("final_examination");
         String tdText = $(By.xpath("//td[text()='2023-04-17']")).getText();
+        closeWebDriver();
         LOGGER.info("Date of the exam is " + tdText);
         assertEquals("2023-04-17", tdText);
     }
@@ -75,6 +94,7 @@ class Verify {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
         open("https://www.ltu.se/");
         WebDriverRunner.getWebDriver().manage().window().maximize();
+
         WebsiteTesting tasks = new WebsiteTesting();
 
         tasks.acceptCookiesLtu();
@@ -88,7 +108,7 @@ class Verify {
         tasks.selectInstitution();
         tasks.ladokCertificateButton();
         tasks.saveRegistrationCertificateToFolder();
-
+        closeWebDriver();
         // Verify the file is located in the correct folder
         String expectedFolder = "target/Registration";
         String expectedFileName = "registration_certificate.pdf";
@@ -109,9 +129,10 @@ class Verify {
         tasks.acceptCookiesLtu();
         tasks.search();
         tasks.selectTestAvIt();
-        tasks.cyllabusButton();
+        tasks.syllabusButton();
         tasks.selectAdmissionSemester();
         tasks.saveSyllabusToFolder();
+        closeWebDriver();
 
         //Verify the Syllabus file is located in the correct folder.
         String expectedFolder = "target/Syllabus";
@@ -120,9 +141,13 @@ class Verify {
         assertTrue(Files.exists(expectedFilePath), "Certificate not found in the expected folder: " + expectedFolder);
     }
 
+    /**
+     * Verify create certificate button is visible
+     */
+
     @Disabled
     @Test
-    public void assertCreateCertificate() {
+    public void verifyCreateCertificate() {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
         open("https://www.ltu.se/");
         WebDriverRunner.getWebDriver().manage().window().maximize();
@@ -148,5 +173,6 @@ class Verify {
         } catch (Exception e) {
             assertTrue(false, "Certificate creation failed: " + e.getMessage());
         }
+        closeWebDriver();
     }
 }

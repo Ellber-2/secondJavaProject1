@@ -1,7 +1,5 @@
 package org.testing;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,8 +15,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.text;
+
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -29,7 +26,7 @@ public class WebsiteTesting {
                 try {
                         $("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click();
                 } catch (TimeoutException e ){
-
+                        System.out.println("Accept cookies is not visible");
                 }
         }
 
@@ -38,7 +35,7 @@ public class WebsiteTesting {
                         SelenideElement studentButton = $(By.xpath("//*[@id='main-nav']/div[3]/div/a[1]"));
                         studentButton.click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Student button is not visible");
                 }
         }
 
@@ -46,7 +43,7 @@ public class WebsiteTesting {
                 try {
                         $(By.xpath("//a[normalize-space()='Logga in']")).click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Login button is not visible");
                 }
         }
 
@@ -62,7 +59,7 @@ public class WebsiteTesting {
                         credentials.add(email);
                         credentials.add(password);
                 } catch (IOException e) {
-
+                        System.out.println("Issues with .JSON file");
                 }
 
                 return credentials;
@@ -77,7 +74,7 @@ public class WebsiteTesting {
                         $(By.cssSelector("#password")).setValue(password);
                         $(By.cssSelector("input[value='LOGGA IN']")).click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Issues with login");
                 }
 
 
@@ -87,7 +84,7 @@ public class WebsiteTesting {
                 try {
                         $(By.xpath("//a[normalize-space()='Intyg »']")).click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Could not find ltu certificate button");
                 }
 
         }
@@ -113,7 +110,7 @@ public class WebsiteTesting {
                 try {
                         $(By.xpath("//span[normalize-space()='Access through your institution']")).click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Could not find access institution button");
                 }
 
         }
@@ -122,7 +119,7 @@ public class WebsiteTesting {
                 try {
                         $(By.id("searchinput")).setValue(institution);
                 } catch (TimeoutException e) {
-
+                        System.out.println("Could not find organisation search input");
                 }
 
         }
@@ -131,7 +128,7 @@ public class WebsiteTesting {
                 try {
                         $(By.cssSelector("[aria-label='Select Lulea University of Technology']")).click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Could not select institution");
                 }
 
         }
@@ -140,7 +137,7 @@ public class WebsiteTesting {
                 try {
                         $(By.xpath("//a[normalize-space()='Intyg']")).click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Could not find ladok certificate button");
                 }
 
         }
@@ -150,7 +147,7 @@ public class WebsiteTesting {
                         $(By.id("intygstyp")).click();
                         $(byText("Registreringsintyg")).click();
                 } catch (TimeoutException e) {
-
+                        System.out.println("Issues with certificate type");
                 }
 
         }
@@ -161,7 +158,7 @@ public class WebsiteTesting {
                         $(By.cssSelector("#slut")).setValue("2024-01-01");
 
                 } catch (TimeoutException e) {
-
+                        System.out.println("Issues with start and end date");
                 }
 
         }
@@ -178,7 +175,7 @@ public class WebsiteTesting {
                 try {
                         $(By.cssSelector("[title='Skapa intyg']")).click();
                 } catch (TimeoutException e) {
-
+                        throw new RuntimeException(e.getMessage());
                 }
 
         }
@@ -248,23 +245,31 @@ public class WebsiteTesting {
                         $(By.xpath("//button[@class='button is-medium ltu-search-btn']")).click();
                         $(By.xpath("//input[@id='cludo-search-bar-input']")).setValue("I0015N").sendKeys(Keys.ENTER);
                 } catch (TimeoutException e) {
-
+                        throw new RuntimeException(e.getMessage());
                 }
 
+        }
+        public void logout() {
+                try {
+                        $(By.cssSelector(".user-full-name")).click();
+                        $(By.xpath("//span[normalize-space()='Logga ut']")).click();
+                } catch (TimeoutException e) {
+                        throw new RuntimeException(e.getMessage());
+                }
         }
         public void selectTestAvIt(){
                 try {
                         $(By.cssSelector("a[title='Test av IT-system']")).click();
                 } catch (TimeoutException e) {
-
+                        throw new RuntimeException(e.getMessage());
                 }
 
         }
-        public void cyllabusButton(){
+        public void syllabusButton(){
                 try {
                         $(By.xpath("//div[@class='more-edu-info']//div//a[contains(text(),'Kursplan')]")).click();
                 } catch (TimeoutException e) {
-
+                        throw new RuntimeException(e.getMessage());
                 }
 
         }
@@ -272,7 +277,7 @@ public class WebsiteTesting {
                 try {
                         $(By.xpath("//a[normalize-space()='V23']")).click();
                 } catch (TimeoutException e) {
-
+                        throw new RuntimeException(e.getMessage());
                 }
 
         }
