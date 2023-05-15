@@ -1,31 +1,28 @@
 package testing;
 
-import com.codeborne.selenide.Configuration;
+
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.Disabled;
 import org.testing.WebsiteTesting;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.time.Duration;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Verify automated Facebook testing tasks.
  */
 class Verify {
     private static final Logger LOGGER = LoggerFactory.getLogger(Verify.class);
+
     /**
      * Verify login using expected URL.
      */
@@ -38,21 +35,15 @@ class Verify {
         WebsiteTesting tasks = new WebsiteTesting();
 
         tasks.acceptCookiesLtu();
-
         tasks.studentButton();
-
-
         tasks.loginButton();
-
-
         tasks.loginCredentials();
 
-
         assertEquals("https://portal.ltu.se/group/student/start", WebDriverRunner.getWebDriver().getCurrentUrl());
-
     }
+
     /**
-     *Verify examination date
+     * Verify examination date.
      */
     @Test
     public void assertExaminationDate() {
@@ -76,34 +67,9 @@ class Verify {
         assertEquals("2023-04-17", tdText);
     }
 
-
-
-
-
-
     /**
-     * Verify download by finding the file in the directory.
+     * Verify download certificate.
      */
-    @Test
-    public void assertDownload() {
-        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-        open("https://www.ltu.se/");
-        WebDriverRunner.getWebDriver().manage().window().maximize();
-
-        WebsiteTesting tasks = new WebsiteTesting();
-
-        tasks.acceptCookiesLtu();
-
-        tasks.studentButton();
-
-        tasks.loginButton();
-
-        tasks.loginCredentials();
-
-
-
-    }
-
     @Test
     public void assertDownloadCertificate() {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
@@ -112,29 +78,29 @@ class Verify {
         WebsiteTesting tasks = new WebsiteTesting();
 
         tasks.acceptCookiesLtu();
-
         tasks.studentButton();
-
         tasks.loginButton();
-
         tasks.loginCredentials();
-
         tasks.ltuCertificateButton();
-
         tasks.switchWindow();
-
         tasks.accessInstitutionButton();
-
         tasks.organisationSearchInput("LTU");
-
         tasks.selectInstitution();
-
         tasks.ladokCertificateButton();
-
         tasks.saveRegistrationCertificateToFolder();
+
+        // Verify the file is located in the correct folder
+        String expectedFolder = "target/Registration";
+        String expectedFileName = "registration_certificate.pdf";
+        Path expectedFilePath = Paths.get(expectedFolder, expectedFileName);
+        assertTrue(Files.exists(expectedFilePath), "Certificate not found in the expected folder: " + expectedFolder);
     }
+
+    /**
+     * Verify download syllabus.
+     */
     @Test
-    public void assertDownloadSyllbus() {
+    public void assertDownloadSyllabus() {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
         open("https://www.ltu.se/");
         WebDriverRunner.getWebDriver().manage().window().maximize();
@@ -146,10 +112,16 @@ class Verify {
         tasks.cyllabusButton();
         tasks.selectAdmissionSemester();
         tasks.saveSyllabusToFolder();
+
+        //Verify the Syllabus file is located in the correct folder.
+        String expectedFolder = "target/Syllabus";
+        String expectedFileName = "Syllabus.pdf";
+        Path expectedFilePath = Paths.get(expectedFolder, expectedFileName);
+        assertTrue(Files.exists(expectedFilePath), "Certificate not found in the expected folder: " + expectedFolder);
     }
 
     @Disabled
-    //@Test
+    @Test
     public void assertCreateCertificate() {
         System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
         open("https://www.ltu.se/");
@@ -165,64 +137,16 @@ class Verify {
         tasks.organisationSearchInput("LTU");
         tasks.selectInstitution();
         tasks.ladokCertificateButton();
-        tasks.createCertificate();
+        tasks.createCertificateButton();
         tasks.certificateTypeButton();
-        tasks.createCertificate();
-    }
-    /**
-     * Verify search using expected URL.
-     *//*
-    @Test
-    public void assertSearch() {
-        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications", "--lang=eng");
-        WebDriver driver = new ChromeDriver(options);
-        FacebookTest task = new FacebookTest(driver);
+        tasks.certificateInformation();
 
-        task.browserSettings();
-        task.goToFacebook();
-        task.bypassCookies();
-        task.login();
-        task.search();
+        //Verify that the createCertificate is pressed.
 
         try {
-            WebDriverWait wait = new WebDriverWait(driver,  Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.urlToBe("https://www.facebook.com/search/top/?q=Bean"));
-        }catch(TimeoutException e) {
-            throw new RuntimeException(e);
+            tasks.createCertificate();
+        } catch (Exception e) {
+            assertTrue(false, "Certificate creation failed: " + e.getMessage());
         }
-        assertEquals ("https://www.facebook.com/search/top/?q=Bean", driver.getCurrentUrl());
-        driver.quit();
-
     }
-    /**
-     * Verify posting by finding the text in the element after posting.
-     *//*
-    @Test
-    public void assertPosting() {
-        System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications", "--lang=eng");
-        WebDriver driver = new ChromeDriver(options);
-        FacebookTest task = new FacebookTest(driver);
-
-        task.browserSettings();
-        task.goToFacebook();
-        task.bypassCookies();
-        task.login();
-        task.createPost();
-        boolean posted;
-        try {
-            WebDriverWait wait = new WebDriverWait(driver,  Duration.ofSeconds(20));
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(text(), 'ZZZ')]")));
-            posted = true;
-        }catch(TimeoutException e) {
-            throw new RuntimeException(e);
-        }
-        assertTrue(posted);
-        driver.quit();
-
-    }*/
-
 }

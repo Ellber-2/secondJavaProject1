@@ -1,67 +1,57 @@
 package org.testing;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import java.util.Scanner;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
+            public class Main {
+                public static void main(String[] args) {
 
-import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.$;
+                    Scanner scanner = new Scanner(System.in);
+                    boolean validInput = false;
+                    WebsiteTesting WebsiteTesting = new WebsiteTesting ();
 
-public class Main {
-        public static void main(String[] args) {
-            System.setProperty("webdriver.chrome.driver", "src/main/java/chromedriver.exe");
-            open("https://www.ltu.se/");
-            WebsiteTesting tasks = new WebsiteTesting();
-            WebDriverRunner.getWebDriver().manage().window().maximize();
+                    while (!validInput) {
+                        System.out.println("Press 1:.. 2:.. 3:.. 4:.. 5:.. 6:.. 7:..");
+                        String userInput = scanner.next();
 
-            tasks.acceptCookiesLtu();
 
-            tasks.studentButton();
 
-            tasks.loginButton();
+                        switch(userInput) {
+                            case "1":
+                                //verify.assertDownloadCertificate();
+                                validInput=true;
+                                break;
+                            case "2":
+                                System.out.println("Task 2 performed");
+                                validInput=true;
+                                break;
+                            case "3":
+                                System.out.println("Task 3 performed");
+                                validInput=true;
+                                break;
+                            case "4":
+                                System.out.println("Task 4 performed");
+                                validInput=true;
+                                break;
+                            case "5":
+                                System.out.println("Task 5 performed");
+                                validInput=true;
+                                break;
+                            default:
+                                System.out.println("Invalid input");
+                                break;
+                        }
+                    }
+                }
 
-            tasks.loginCredentials();
 
-            tasks.ltuCertificateButton();
 
-            tasks.switchWindow();
 
-            tasks.accessInstitutionButton();
-
-            tasks.organisationSearchInput("LTU");
-
-            tasks.selectInstitution();
-
-            tasks.ladokCertificateButton();
-
-            tasks.createCertificateButton();
-
-            tasks.certificateTypeButton();
-
-            tasks.createCertificate();
+            }
 
 
 
 
 
 
-
-
-        }
-
-}
 
 

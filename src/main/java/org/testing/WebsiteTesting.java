@@ -7,6 +7,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,18 +22,32 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
+
 public class WebsiteTesting {
         public void acceptCookiesLtu() {
-                $("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click();
+
+                try {
+                        $("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click();
+                } catch (TimeoutException e ){
+
+                }
         }
 
         public void studentButton() {
-                SelenideElement studentButton = $(By.xpath("//*[@id='main-nav']/div[3]/div/a[1]"));
-                studentButton.click();
+                try {
+                        SelenideElement studentButton = $(By.xpath("//*[@id='main-nav']/div[3]/div/a[1]"));
+                        studentButton.click();
+                } catch (TimeoutException e) {
+
+                }
         }
 
         public void loginButton() {
-                $(By.xpath("//a[normalize-space()='Logga in']")).click();
+                try {
+                        $(By.xpath("//a[normalize-space()='Logga in']")).click();
+                } catch (TimeoutException e) {
+
+                }
         }
 
         public ArrayList<String> listCredits() {
@@ -57,13 +72,24 @@ public class WebsiteTesting {
                 ArrayList<String> listCredits = listCredits();
                 String email = listCredits.get(0);
                 String password = listCredits.get(1);
-                $(By.cssSelector("#username")).setValue(email);
-                $(By.cssSelector("#password")).setValue(password);
-                $(By.cssSelector("input[value='LOGGA IN']")).click();
+                try {
+                        $(By.cssSelector("#username")).setValue(email);
+                        $(By.cssSelector("#password")).setValue(password);
+                        $(By.cssSelector("input[value='LOGGA IN']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
+
         }
 
         public void ltuCertificateButton() {
-                $(By.xpath("//a[normalize-space()='Intyg »']")).click();
+                try {
+                        $(By.xpath("//a[normalize-space()='Intyg »']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
 
         public void switchWindow() {
@@ -84,34 +110,77 @@ public class WebsiteTesting {
         }
 
         public void accessInstitutionButton() {
-                $(By.xpath("//span[normalize-space()='Access through your institution']")).click();
+                try {
+                        $(By.xpath("//span[normalize-space()='Access through your institution']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
 
         public void organisationSearchInput(String institution) {
-                $(By.id("searchinput")).setValue(institution);
+                try {
+                        $(By.id("searchinput")).setValue(institution);
+                } catch (TimeoutException e) {
+
+                }
+
         }
 
         public void selectInstitution() {
-                $(By.cssSelector("[aria-label='Select Lulea University of Technology']")).click();
+                try {
+                        $(By.cssSelector("[aria-label='Select Lulea University of Technology']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
 
         public void ladokCertificateButton() {
-                $(By.xpath("//a[normalize-space()='Intyg']")).click();
+                try {
+                        $(By.xpath("//a[normalize-space()='Intyg']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
 
         public void certificateTypeButton() {
-                $(By.id("intygstyp")).click();
-                $(byText("Registreringsintyg")).click();
+                try {
+                        $(By.id("intygstyp")).click();
+                        $(byText("Registreringsintyg")).click();
+                } catch (TimeoutException e) {
+
+                }
+
+        }
+
+        public void certificateInformation() {
+                try {
+                        $(By.cssSelector("#start")).setValue("2022-01-01");
+                        $(By.cssSelector("#slut")).setValue("2024-01-01");
+
+                } catch (TimeoutException e) {
+
+                }
+
         }
 
         public void createCertificate() {
-                $(By.cssSelector("#start")).setValue("2022-01-01");
-                $(By.cssSelector("#slut")).setValue("2024-01-01");
-                $(By.cssSelector("button[class='btn btn-ladok-brand text-nowrap me-lg-3']")).click();
+                try {
+                        $(By.cssSelector("button[class='btn btn-ladok-brand text-nowrap me-lg-3']")).click();
+                } catch (TimeoutException e) {
+                        throw new RuntimeException("Certificate creation failed: " + e.getMessage());
+                }
         }
 
         public void createCertificateButton() {
-                $(By.cssSelector("[title='Skapa intyg']")).click();
+                try {
+                        $(By.cssSelector("[title='Skapa intyg']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
 
         public void searchCourseCode() {
@@ -175,17 +244,37 @@ public class WebsiteTesting {
                 }
         }
         public void search(){
-                $(By.xpath("//button[@class='button is-medium ltu-search-btn']")).click();
-                $(By.xpath("//input[@id='cludo-search-bar-input']")).setValue("I0015N").sendKeys(Keys.ENTER);
+                try {
+                        $(By.xpath("//button[@class='button is-medium ltu-search-btn']")).click();
+                        $(By.xpath("//input[@id='cludo-search-bar-input']")).setValue("I0015N").sendKeys(Keys.ENTER);
+                } catch (TimeoutException e) {
+
+                }
+
         }
         public void selectTestAvIt(){
-                $(By.cssSelector("a[title='Test av IT-system']")).click();
+                try {
+                        $(By.cssSelector("a[title='Test av IT-system']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
         public void cyllabusButton(){
-                $(By.xpath("//div[@class='more-edu-info']//div//a[contains(text(),'Kursplan')]")).click();
+                try {
+                        $(By.xpath("//div[@class='more-edu-info']//div//a[contains(text(),'Kursplan')]")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
         public void selectAdmissionSemester() {
-                $(By.xpath("//a[normalize-space()='V23']")).click();
+                try {
+                        $(By.xpath("//a[normalize-space()='V23']")).click();
+                } catch (TimeoutException e) {
+
+                }
+
         }
         public void saveSyllabusToFolder() {
                 String directoryPath = "target/Syllabus";
